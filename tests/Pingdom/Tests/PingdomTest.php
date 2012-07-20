@@ -25,7 +25,7 @@ class PingdomTest extends \PHPUnit_Framework_TestCase
 
 			$this->assertTrue(is_array($checks));
 		} catch (\Exception $e) {
-			$this->fail('User credentials missing');
+			// User credentials missing
 		}
 	}
 }

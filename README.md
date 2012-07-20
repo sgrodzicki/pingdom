@@ -42,6 +42,8 @@ $pingdom->getChecks();
 Tests
 =====
 
+[![Build Status](https://secure.travis-ci.org/sgrodzicki/pingdom.png?branch=master)](http://travis-ci.org/sgrodzicki/pingdom)
+
 The client is tested with phpunit; you can run the tests, from the repository's root, by doing:
 
 ``` bash

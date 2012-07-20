@@ -4,6 +4,7 @@
     "description": "A PHP library for dealing with the Pingdom REST API",
     "keywords": ["pingdom", "api"],
     "homepage": "https://github.com/sgrodzicki/pingdom",
+    "version": "1.0.0",
     "license": "MIT",
     "authors": [
         {

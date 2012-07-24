@@ -38,7 +38,7 @@ class Client
 	}
 
 	/**
-	 * Return all checks
+	 * Returns a list overview of all checks
 	 *
 	 * @return array
 	 * @throws \Exception
@@ -51,18 +51,58 @@ class Client
 		$request = $client->get('checks', array('App-Key' => $this->token));
 		$request->setAuth($this->username, $this->password);
 		$response = $request->send();
-
-		// Execute the request and decode the json result into an associative array
 		$response = json_decode($response->getBody(), true);
 
-		// Check for errors returned by the API
-		if (isset($response['error'])) {
-			throw new \Exception("Error: " . $response['error']['errormessage']);
+		return $response['checks'];
+	}
+
+	/**
+	 * Returns a list of all Pingdom probe servers
+	 *
+	 * @return Probe\Server[]
+	 */
+	public function getProbes()
+	{
+		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
+
+		/** @var $request \Guzzle\Http\Message\Request */
+		$request = $client->get('probes', array('App-Key' => $this->token));
+		$request->setAuth($this->username, $this->password);
+		$response = $request->send();
+		$response = json_decode($response->getBody(), true);
+		$probes   = array();
+
+		foreach ($response['probes'] as $attributes) {
+			$probes[] = new Probe\Server($attributes);
 		}
 
-		// Fetch the list of checks from the response
-		$checksList = $response['checks'];
+		return $probes;
+	}
 
-		return $checksList;
+	/**
+	 * Return a list of raw test results for a specified check
+	 *
+	 * @param int        $checkId
+	 * @param int        $limit
+	 * @param array|null $probes
+	 * @return array
+	 */
+	public function getResults($checkId, $limit = 100, array $probes = null)
+	{
+		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
+
+		/** @var $request \Guzzle\Http\Message\Request */
+		$request = $client->get('results/' . $checkId, array('App-Key' => $this->token));
+		$request->setAuth($this->username, $this->password);
+		$request->getQuery()->set('limit', $limit);
+
+		if (is_array($probes)) {
+			$request->getQuery()->set('probes', implode(',', $probes));
+		}
+
+		$response = $request->send();
+		$response = json_decode($response->getBody(), true);
+
+		return $response['results'];
 	}
 }

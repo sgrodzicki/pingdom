@@ -17,15 +17,90 @@ class PingdomTest extends \PHPUnit_Framework_TestCase
 		parent::setUp();
 	}
 
+	public function testCredentials()
+	{
+		if (is_null($this->username) || is_null($this->password) || is_null($this->token)) {
+			$this->markTestSkipped('User credentials missing');
+		}
+	}
+
+	/**
+	 * @depends testCredentials
+	 */
 	public function testChecks()
 	{
-		try {
-			$pingdom = new \Pingdom\Client($this->username, $this->password, $this->token);
-			$checks  = $pingdom->getChecks();
+		$pingdom = new \Pingdom\Client($this->username, $this->password, $this->token);
+		$checks  = $pingdom->getChecks();
 
-			$this->assertTrue(is_array($checks));
-		} catch (\Exception $e) {
-			// User credentials missing
+		$this->assertTrue(is_array($checks));
+
+		return $checks;
+	}
+
+	/**
+	 * @depends testCredentials
+	 */
+	public function testProbes()
+	{
+		$pingdom    = new \Pingdom\Client($this->username, $this->password, $this->token);
+		$probes     = $pingdom->getProbes();
+		$attributes = array('id', 'country', 'city', 'name', 'active', 'hostname', 'ip', 'countryiso');
+
+		$this->assertTrue(is_array($probes));
+
+		foreach ($probes as $probe) {
+			$this->assertInstanceOf('Pingdom\Probe\Server', $probe);
+
+			foreach ($attributes as $attribute) {
+				$this->assertObjectHasAttribute($attribute, $probe);
+			}
+
+			$this->assertTrue(is_int($probe->getId()));
+			$this->assertTrue(is_bool($probe->getActive()));
+
+			$this->assertTrue(is_string($probe->getCity()));
+			$this->assertStringMatchesFormat('%s', $probe->getCity());
+
+			$this->assertTrue(is_string($probe->getCountry()));
+			$this->assertStringMatchesFormat('%s', $probe->getCountry());
+
+			$this->assertTrue(is_string($probe->getCountryiso()));
+			$this->assertStringMatchesFormat('%c%c', $probe->getCountryiso());
+
+			$this->assertTrue(is_string($probe->getHostname()));
+			$this->assertStringMatchesFormat('s%d.pingdom.com', $probe->getHostname());
+
+			$this->assertTrue(is_string($probe->getIp()));
+			$this->assertStringMatchesFormat('%d.%d.%d.%d', $probe->getIp());
+
+			$this->assertTrue(is_string($probe->getName()));
+			$this->assertStringMatchesFormat('%s', $probe->getName());
+
+			$this->assertTrue(is_string((string) $probe));
+			$this->assertEquals($probe->getName(), (string) $probe);
+		}
+	}
+
+	/**
+	 * @depends testChecks
+	 */
+	public function testResults(array $checks)
+	{
+		$keys = array(
+			'id',
+			'created',
+			'name',
+			'hostname',
+			'resolution',
+			'type',
+			'lastresponsetime',
+			'status',
+		);
+
+		foreach ($checks as $check) {
+			foreach ($keys as $key) {
+				$this->assertArrayHasKey($key, $check);
+			}
 		}
 	}
 }

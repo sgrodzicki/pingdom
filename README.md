@@ -11,7 +11,7 @@ The best way to install the library is by using [Composer](http://getcomposer.or
 ``` javascript
 { 
     "require": {
-        "sgrodzicki/pingdom": "1.0.*"
+        "sgrodzicki/pingdom": "1.1.*"
     }
 }
 ```
@@ -36,7 +36,18 @@ $password = ''; // Pingdom password
 $token    = ''; // Pingdom application key (32 characters)
 
 $pingdom = new \Pingdom\Client($username, $password, $token);
-$pingdom->getChecks();
+
+// List of probe servers
+$probes = $pingdom->getProbes();
+foreach ($probes as $probe) {
+    echo $probe->getName() . PHP_EOL;
+}
+
+// List of checks
+$checks  = $pingdom->getChecks();
+foreach ($checks as $check) {
+    $results = $pingdom->getResults($check['id']);
+}
 ```
 
 Tests

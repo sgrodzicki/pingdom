@@ -15,7 +15,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "guzzle/guzzle": "v2.8.6"
+        "guzzle/guzzle": "3.0.*"
     },
     "autoload": {
         "psr-0": {

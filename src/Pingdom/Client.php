@@ -105,4 +105,27 @@ class Client
 
 		return $response['results'];
 	}
+
+	/**
+	 * Get Intervals of Average Response Time and Uptime During a Given Interval
+	 *
+	 * @param int $checkId
+	 * @param string $resolution
+	 * @return array
+	 */
+	public function getPerformanceSummary($checkId, $resolution = 'hour')
+	{
+		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
+
+		/** @var $request \Guzzle\Http\Message\Request */
+		$request = $client->get('summary.performance/' . $checkId, array('App-Key' => $this->token));
+		$request->setAuth($this->username, $this->password);
+		$request->getQuery()->set('resolution', $resolution);
+		$request->getQuery()->set('includeuptime', 'true');
+
+		$response = $request->send();
+		$response = json_decode($response->getBody(), true);
+
+		return $response['summary'][$resolution . 's'];
+	}
 }

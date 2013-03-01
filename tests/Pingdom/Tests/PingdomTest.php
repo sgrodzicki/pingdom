@@ -103,4 +103,29 @@ class PingdomTest extends \PHPUnit_Framework_TestCase
 			}
 		}
 	}
+
+	/**
+	 * @depends testChecks
+	 */
+	public function testPerformanceSummary(array $checks)
+	{
+		$pingdom = new \Pingdom\Client($this->username, $this->password, $this->token);
+		$keys = array(
+			'unmonitored',
+			'uptime',
+			'avgresponse',
+			'starttime',
+			'downtime',
+		);
+
+		foreach ($checks as $check) {
+			foreach (array('hour', 'day', 'week') as $resolution) {
+				foreach ($pingdom->getPerformanceSummary($check['id'], $resolution) as $summary) {
+					foreach ($keys as $key) {
+						$this->assertArrayHasKey($key, $summary);
+					}
+				}
+			}
+		}
+	}
 }

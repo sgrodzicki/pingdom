@@ -12,10 +12,9 @@
             "homepage": "http://sebastian.grodzicki.pl"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "guzzle/guzzle": "3.0.*"
+        "guzzle/guzzle": ">=3.0, <3.4"
     },
     "autoload": {
         "psr-0": {

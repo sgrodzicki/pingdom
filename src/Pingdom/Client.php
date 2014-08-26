@@ -153,4 +153,16 @@ class Client
 
 		return $response;
 	}
+	public function removeCheck($checkId) {
+		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
+
+		/** @var $request \Guzzle\Http\Message\Request */
+		$request = $client->delete('checks/' . $checkId, array('App-Key' => $this->token));
+		$request->setAuth($this->username, $this->password);
+
+		$response = $request->send();
+		$response = json_decode($response->getBody(), true);
+
+		return $response;
+	}
 }

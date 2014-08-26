@@ -151,5 +151,6 @@ class Client
 		$response = $request->send();
 		$response = json_decode($response->getBody(), true);
 
+		return $response;
 	}
 }

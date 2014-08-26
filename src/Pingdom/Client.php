@@ -128,4 +128,28 @@ class Client
 
 		return $response['summary'][$resolution . 's'];
 	}
+
+	public function addHTTPCheck($name, $host, $url, $sendtoemail, $sendtoiphone, $sendtoandroid, $contactids) {
+		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
+
+		/** @var $request \Guzzle\Http\Message\Request */
+		$request = $client->post('checks', array('App-Key' => $this->token));
+		$request->setAuth($this->username, $this->password);
+
+		$query = $request->getQuery();
+
+		$query->set('name', $name);
+		$query->set('host', $host);
+		$query->set('type', 'http');
+		$query->set('url', $url);
+		$query->set('sendtoemail', $sendtoemail);
+		$query->set('sendtoiphone', $sendtoiphone);
+		$query->set('sendtoandroid', $sendtoandroid);
+		$query->set('contactids', $contactids);
+		$query->set('use_legacy_notifications', 'true');
+
+		$response = $request->send();
+		$response = json_decode($response->getBody(), true);
+
+	}
 }

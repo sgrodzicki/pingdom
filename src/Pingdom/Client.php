@@ -145,7 +145,7 @@ class Client
 		$query->set('sendtoemail', $sendtoemail);
 		$query->set('sendtoiphone', $sendtoiphone);
 		$query->set('sendtoandroid', $sendtoandroid);
-		$query->set('contactids', $contactids);
+		$query->set('contactids', implode(",", $contactids));
 		$query->set('use_legacy_notifications', 'true');
 
 		$response = $request->send();
@@ -169,7 +169,7 @@ class Client
 		$query->set('sendtoemail', $sendtoemail);
 		$query->set('sendtoiphone', $sendtoiphone);
 		$query->set('sendtoandroid', $sendtoandroid);
-		$query->set('contactids', $contactids);
+		$query->set('contactids', implode(",", $contactids));
 		$query->set('use_legacy_notifications', 'true');
 
 		$response = $request->send();

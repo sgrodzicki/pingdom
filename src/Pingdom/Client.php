@@ -158,14 +158,13 @@ class Client
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
 
 		/** @var $request \Guzzle\Http\Message\Request */
-		$request = $client->post('checks/' . $checkId , array('App-Key' => $this->token));
+		$request = $client->put('checks/' . $checkId , array('App-Key' => $this->token));
 		$request->setAuth($this->username, $this->password);
 
 		$query = $request->getQuery();
 
 		$query->set('name', $name);
 		$query->set('host', $host);
-		$query->set('type', 'http');
 		$query->set('url', $url);
 		$query->set('sendtoemail', $sendtoemail);
 		$query->set('sendtoiphone', $sendtoiphone);

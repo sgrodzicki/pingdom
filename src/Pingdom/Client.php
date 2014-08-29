@@ -129,6 +129,17 @@ class Client
 		return $response['summary'][$resolution . 's'];
 	}
 
+/**
+ * Adds a new HTTPCheck with the given parameters
+ * @param type $name
+ * @param type $host
+ * @param type $url
+ * @param type $sendtoemail
+ * @param type $sendtoiphone
+ * @param type $sendtoandroid
+ * @param type $contactids
+ * @return type
+ */
 	public function addHTTPCheck($name, $host, $url, $sendtoemail, $sendtoiphone, $sendtoandroid, $contactids) {
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
 
@@ -153,7 +164,18 @@ class Client
 
 		return $response;
 	}
-
+/**
+ * Updates the HTTPcheck $checkid with the given parameters
+ * @param type $checkId
+ * @param type $name
+ * @param type $host
+ * @param type $url
+ * @param type $sendtoemail
+ * @param type $sendtoiphone
+ * @param type $sendtoandroid
+ * @param type $contactids
+ * @return type
+ */
 	public function updateHTTPCheck($checkId, $name, $host, $url, $sendtoemail, $sendtoiphone, $sendtoandroid, $contactids) {
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
 
@@ -177,6 +199,12 @@ class Client
 
 		return $response;
 	}
+
+/**
+ * Remove a check with the given id
+ * @param type $checkId
+ * @return type
+ */
 	public function removeCheck($checkId) {
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
 
@@ -190,7 +218,11 @@ class Client
 		return $response;
 	}
 
-
+/**
+ * Returns the id of the check with $name
+ * @param type $name
+ * @return type
+ */
 	public function getCheck($name)
 	{
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');

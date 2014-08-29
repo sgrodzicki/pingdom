@@ -179,7 +179,7 @@ class Client
 
 		foreach ($response['checks'] as $key => $value) {
             if($value['name'] == $name){
-                return=$value['id'];
+                return $value['id'];
             }
         }
 	}

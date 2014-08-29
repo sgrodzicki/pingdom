@@ -153,7 +153,8 @@ class Client
 
 		return $response;
 	}
-	public function updateHTTPCheck($name, $host, $url, $sendtoemail, $sendtoiphone, $sendtoandroid, $contactids) {
+
+	public function updateHTTPCheck($checkId, $name, $host, $url, $sendtoemail, $sendtoiphone, $sendtoandroid, $contactids) {
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
 
 		/** @var $request \Guzzle\Http\Message\Request */

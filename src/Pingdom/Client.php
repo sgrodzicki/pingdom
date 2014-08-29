@@ -43,7 +43,7 @@ class Client
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function getChecks()
+	public function getAllChecks()
 	{
 		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
 
@@ -164,5 +164,23 @@ class Client
 		$response = json_decode($response->getBody(), true);
 
 		return $response;
+	}
+
+
+	public function getCheck($name)
+	{
+		$client = new \Guzzle\Service\Client('https://api.pingdom.com/api/2.0');
+
+		/** @var $request \Guzzle\Http\Message\Request */
+		$request = $client->get('checks', array('App-Key' => $this->token));
+		$request->setAuth($this->username, $this->password);
+		$response = $request->send();
+		$response = json_decode($response->getBody(), true);
+
+		foreach ($response['checks'] as $key => $value) {
+            if($value['name'] == $name){
+                return=$value['id'];
+            }
+        }
 	}
 }

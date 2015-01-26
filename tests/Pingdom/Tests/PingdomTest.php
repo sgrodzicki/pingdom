@@ -4,7 +4,7 @@ namespace Pingdom\Tests;
 
 class PingdomTest extends \PHPUnit_Framework_TestCase
 {
-	private $username, $password, $token;
+	protected $username, $password, $token;
 
 	protected function setUp()
 	{

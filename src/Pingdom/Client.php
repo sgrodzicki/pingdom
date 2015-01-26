@@ -10,17 +10,17 @@ class Client
 	/**
 	 * @var string
 	 */
-	private $username;
+	protected $username;
 
 	/**
 	 * @var string
 	 */
-	private $password;
+	protected $password;
 
 	/**
 	 * @var string
 	 */
-	private $token;
+	protected $token;
 
 	/**
 	 * @param string $username

@@ -10,17 +10,17 @@ class Client
 	/**
 	 * @var string
 	 */
-	protected $username;
+	private $username;
 
 	/**
 	 * @var string
 	 */
-	protected $password;
+	private $password;
 
 	/**
 	 * @var string
 	 */
-	protected $token;
+	private $token;
 
 	/**
 	 * @param string $username
@@ -35,6 +35,36 @@ class Client
 		$this->token    = $token;
 
 		return $this;
+	}
+
+	/**
+   * Returns the username.
+   *
+   * @return string
+   */
+	protected function getUsername() 
+	{
+	  return $this->username;
+	}
+
+	/**
+   * Returns the password.
+   *
+   * @return string
+   */
+	protected function getPassword() 
+	{
+	  return $this->password;
+	}
+
+	/**
+   * Returns the token.
+   *
+   * @return string
+   */
+	protected function getToken() 
+	{
+	  return $this->token;
 	}
 
 	/**

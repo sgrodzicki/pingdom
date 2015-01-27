@@ -4,7 +4,7 @@ namespace Pingdom\Probe;
 
 class Server
 {
-	protected $id, $country, $city, $name, $active, $hostname, $ip, $countryiso;
+	private $id, $country, $city, $name, $active, $hostname, $ip, $countryiso;
 
 	/**
 	 * @param array $attributes

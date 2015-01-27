@@ -38,31 +38,31 @@ class Client
 	}
 
 	/**
-   * Returns the username.
-   *
-   * @return string
-   */
-	protected function getUsername() 
+	 * Returns the username.
+	 *
+	 * @return string
+	 */
+	protected function getUsername()
 	{
 	  return $this->username;
 	}
 
 	/**
-   * Returns the password.
-   *
-   * @return string
-   */
-	protected function getPassword() 
+	 * Returns the password.
+	 *
+	 * @return string
+	 */
+	protected function getPassword()
 	{
 	  return $this->password;
 	}
 
 	/**
-   * Returns the token.
-   *
-   * @return string
-   */
-	protected function getToken() 
+	 * Returns the token.
+	 *
+	 * @return string
+	 */
+	protected function getToken()
 	{
 	  return $this->token;
 	}

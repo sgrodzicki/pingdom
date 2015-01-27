@@ -38,6 +38,36 @@ class Client
 	}
 
 	/**
+	 * Returns the username.
+	 *
+	 * @return string
+	 */
+	protected function getUsername()
+	{
+	  return $this->username;
+	}
+
+	/**
+	 * Returns the password.
+	 *
+	 * @return string
+	 */
+	protected function getPassword()
+	{
+	  return $this->password;
+	}
+
+	/**
+	 * Returns the token.
+	 *
+	 * @return string
+	 */
+	protected function getToken()
+	{
+	  return $this->token;
+	}
+
+	/**
 	 * Returns a list overview of all checks
 	 *
 	 * @return array
